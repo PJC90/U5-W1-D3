@@ -1,6 +1,8 @@
 package pierpaolo.u5w1d1;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import pierpaolo.u5w1d1.entities.*;
 
@@ -59,7 +61,12 @@ public class classeTest {
         Tavolo t = ctx.getBean("tavolo_1", Tavolo.class);
         assertEquals(2.00,t.getCostoCoperto());
     }
-
+@Test
+public void testPizzaList(){
+    System.out.println("TEST 7b dimensione lista Pizza");
+        Menu m = ctx.getBean("menu", Menu.class);
+        assertEquals(3, m.getPizzaList().size());
+}
     @Test
     void ordineTest(){
         System.out.println("TEST 8 total ordine");
@@ -72,7 +79,39 @@ public class classeTest {
 
         Ordine o = new Ordine(4, prodottiOrdinati, tavolo1);
 
-        assertEquals(25.939999999999998, o.getTotale());
+        assertEquals(27.939999999999998, o.getTotale());
     }
-
+    @ParameterizedTest
+    @CsvSource({"pomodoro,100","mozzarella,699","funghi, 258","salame,451"})
+    void testToppingCalorie(String topping, int calorie){
+        System.out.println("TEST 9 Topping calorie");
+        Topping  t = ctx.getBean(topping, Topping.class);
+        assertEquals(calorie, t.getCalorie());
+}
+@ParameterizedTest
+    @CsvSource({"margherita,1799","margheritaXl,1888", "vikinga,2508"})
+    void testPizzaCalorie(String pizza, int calorie){
+    System.out.println("TEST 10 Pizza calorie");
+    Pizza p = ctx.getBean(pizza, Pizza.class);
+    assertEquals(calorie, p.getCalorie());
+}
+@ParameterizedTest
+    @CsvSource({"pizzaList, 3", "toppingList,4", "bevandaList,1"})
+    void testSizeListeMenu(String list, int size){
+    System.out.println("TEST 11 size liste del menu");
+        Menu m = ctx.getBean("menu", Menu.class);
+        switch (list){
+            case "pizzaList":
+                assertEquals(size, m.getPizzaList().size());
+                break;
+            case "toppingList":
+                assertEquals(size, m.getToppingList().size());
+                break;
+            case "bevandaList":
+                assertEquals(size, m.getBevandaList().size());
+                break;
+            default:
+                throw new IllegalArgumentException(list + " non è una stringa valida!");
+        }
+}
 }

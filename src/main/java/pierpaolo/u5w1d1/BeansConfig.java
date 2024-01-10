@@ -30,6 +30,7 @@ public class BeansConfig {
         return new Pizza("Margherita", tList, false);
     }
     @Bean
+//    @Bean(name="MARG_XL")
     public Pizza margheritaXl(){
         List<Topping> tList = new ArrayList<>();
         tList.add(pomodoro());

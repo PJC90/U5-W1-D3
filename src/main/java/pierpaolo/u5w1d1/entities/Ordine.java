@@ -30,7 +30,7 @@ public class Ordine {
         this.numOrdine = rm.nextInt();
     }
     public double getTotale(){
-        return this.prodottiOrdinati.stream().mapToDouble(Prodotto::getPrezzo).sum()+ this.numCoperti + this.tavolo.getCostoCoperto();
+        return this.prodottiOrdinati.stream().mapToDouble(Prodotto::getPrezzo).sum()+ this.numCoperti * this.tavolo.getCostoCoperto();
     }
 //    public double getCostoCoperto(){
 //        return this.numCoperti * this.costoCoperto;

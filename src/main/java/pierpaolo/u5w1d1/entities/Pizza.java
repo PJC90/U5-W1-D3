@@ -21,7 +21,7 @@ public class Pizza extends Prodotto{
         this.isXl = isXl;
     }
     public int setCalorie(List<Topping> toppings, boolean isXl){
-        int tot = 1032;
+        int tot = 1000;
         if(toppings != null){
             for(int i = 0; i< toppings.size(); i++){
                 tot += toppings.get(i).getCalorie();

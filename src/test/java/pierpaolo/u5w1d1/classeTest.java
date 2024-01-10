@@ -4,6 +4,9 @@ import org.junit.jupiter.api.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import pierpaolo.u5w1d1.entities.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class classeTest {
@@ -57,10 +60,19 @@ public class classeTest {
         assertEquals(2.00,t.getCostoCoperto());
     }
 
-//    @Test
-//    void ordineTest(){
-//        Ordine o = ctx.getBean(Ordine.class);
-//        assertEquals(5, o.getTotale());
-//    }
+    @Test
+    void ordineTest(){
+        System.out.println("TEST 8 total ordine");
+
+        Tavolo tavolo1 = (Tavolo) ctx.getBean("tavolo_1");
+
+        List<Prodotto> prodottiOrdinati = new ArrayList<>();
+        prodottiOrdinati.add(ctx.getBean("vikinga", Pizza.class));
+        prodottiOrdinati.add(ctx.getBean("coca", Bevanda.class));
+
+        Ordine o = new Ordine(4, prodottiOrdinati, tavolo1);
+
+        assertEquals(25.939999999999998, o.getTotale());
+    }
 
 }
